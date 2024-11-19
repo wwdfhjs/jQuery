@@ -1,0 +1,191 @@
+/* 基础公共样式：清除默认样式 + 设置通用样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+
+body {
+  font: 14px/1.5 "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
+  color: #333;
+}  
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* 头部样式 */
+.header {
+  background-color: #f7f7f7;
+  padding: 10px 0;
+}
+
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search input {
+  padding: 5px;
+}
+
+/* 主体样式 */
+.container {
+  display: flex;
+  margin-top: 20px;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+  width: 300px;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+  margin: 15px 0;
+}
+
+.section-header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.section-content {
+  display: none; /* 默认不显示 */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px; /* 调整复选框和标签之间的间距 */
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* 主内容样式 */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #f3f5f7;
+}
+
+/* 头部样式调整 */
+.header {
+  height: 100px;
+  background-color: #fff;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.header .wrapper {
+  padding-top: 29px;
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  margin-left: 102px;
+}
+
+.search {
+  display: flex;
+  margin-left: 100px;
+  padding-left: 19px;
+  padding-right: 12px;
+  width: 412px;
+  height: 40px;
+  background-color: #f3f5f7;
+  border-radius: 20px;
+  align-items: center;
+}
+
+.search input {
+  flex: 1;
+  border: 0;
+  background-color: transparent;
+  outline: none;
+}
+
+.search input::placeholder {
+  font-size: 14px;
+  color: #999;
+}
+
+.search a {
+  align-self: center;
+  width: 16px;
+  height: 16px;
+}
+
+.user {
+  margin-left: 250px;
+  margin-top: 4px;
+  position: relative;
+}
+
+.user img {
+  height: 30px;
+  width: 30px;
+  margin-right: 7px;
+  vertical-align: middle;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.user span {
+  font-size: 16px;
+  color: black;
+}
+
+.form-popup {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-popup ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-popup ul li {
+  padding: 8px 0;
+}

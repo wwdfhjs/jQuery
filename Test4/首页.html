@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学成在线</title>
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/test.css">
+    <style>
+        .section-header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 5px;
+        }
+        .section-content {
+            display: none; /* 默认不显示 */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="header">
+        <div class="wrapper">
+            <!-- 导航 -->
+            <div class="nav">
+                <h1>学生管理系统</h1>
+            </div>
+            <!-- 搜索 -->
+            <div class="search">
+                <input type="text" placeholder="请输入关键词">
+                <a href="#"><img src="C:\Users\贺康华\Desktop\Test4\img\search.png" alt="搜索"></a>
+            </div>
+            <!-- 用户 -->
+            <div class="user">
+                <a href="#" id="avatar" onclick="toggleMenu()">
+                    <img src="C:\Users\贺康华\Desktop\Test4\img\touxiang.jpg" alt="头像">
+                    <span>将回忆满盈</span>
+                </a>
+                <div class="form-popup" id="menuForm">
+                    <ul>
+                        <li>体验新功能</li>
+                        <li>订单</li>
+                        <li>我的</li>
+                        <li>账号设置</li>
+                        <li>题目以英文显示</li>
+                        <li>经典模式</li>
+                        <li>外观</li>
+                        <li>退出</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <!-- 侧边栏 -->
+        <div class="sidebar">
+            <div class="form-container">
+                <h2>多级表单</h2>
+                <form id="multiLevelForm">
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleContent('frontendCourses')">前端课程</div>
+                        <div id="frontendCourses" class="section-content">
+                            <label for="htmlCss">HTML 和 CSS 基础</label>                           
+                            <label for="javascript">JavaScript 基础</label>   
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleContent('backendDevelopment')">后端开发</div>
+                        <div id="backendDevelopment" class="section-content">
+                            <label for="javaBasic">Java 基础</label>
+                            <label for="javaWebDevelopment">Java Web 开发</label>
+                            <label for="mysqlDatabase">MySQL 数据库</label>
+                        </div>
+                    </div>
+                    <div class="form-section">
+                        <div class="section-header" onclick="toggleContent('dataAnalysis')">大数据分析</div>
+                        <div id="dataAnalysis" class="section-content">
+                            <label for="pythonBasic">Python 基础</label>                          
+                            <label for="dataMining">数据挖掘</label>                          
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    <script src="./js/首页.js"></script>
+</body>
+</html>
