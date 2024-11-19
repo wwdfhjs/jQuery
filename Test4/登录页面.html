@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录和注册</title>
+    <style>
+        body {
+            background-color: #f0f0f0; /* 浅灰色背景 */
+            font-family: 'Arial', sans-serif; /* 设置字体 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* 使得padding不影响宽度 */
+        }
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 15px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #5cb85c;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 15px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .form-group button + button {
+            margin-top: 15px;
+        }
+        .error {
+            color: red;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="register-form">
+        <form action="/register" method="post" onsubmit="return validateRegisterForm()">
+            <h2>注册</h2>
+            <div class="form-group">
+                <label for="username">用户名:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">电子邮件:</label>
+                <input type="email" id="email" name="email" required>
+                <div id="email-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" id="password" name="password" required>
+                <div id="password-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">确认密码:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="注册">
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="showLoginForm()">已有账户？登录</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-container" id="login-form" style="display: none;">
+        <form action="/login" method="post" onsubmit="return validateLoginForm()">
+            <h2>登录</h2>
+            <div class="form-group">
+                <label for="login_username">用户名:</label>
+                <input type="text" id="login_username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="login_password">密码:</label>
+                <input type="password" id="login_password" name="password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="登录">
+            </div>
+            <div class="form-group">
+                <button type="button" onclick="showRegisterForm()">没有账户？注册</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function showLoginForm() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('register-form').style.display = 'block';
+            document.getElementById('login-form').style.display = 'none';
+        }
+
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        function validatePassword(password) {
+            const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+            return re.test(password);
+        }
+
+        function validateRegisterForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            const emailError = document.getElementById('email-error');
+            const passwordError = document.getElementById('password-error');
+
+            if (!validateEmail(email)) {
+                emailError.textContent = '无效的电子邮件地址';
+                return false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (!validatePassword(password)) {
+                passwordError.textContent = '密码必须至少8位，包含大写字母、小写字母和数字';
+                return false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            if (password !== confirmPassword) {
+                alert('两次输入的密码不一致');
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateLoginForm() {
+            const username = document.getElementById('login_username').value;
+            const password = document.getElementById('login_password').value;
+            const correctUser = 'hekanghua';
+            const correctPassword = '123456';
+
+            if (username !== correctUser || password !== correctPassword) {
+                alert('用户名或密码错误');
+                return false;
+            } else {
+                alert('登录成功');
+                location.href = "首页.html";
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
