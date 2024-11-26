@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生信息管理系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f4f4f4;
+        }
+
+        .sidebar {
+            background-color: #fff;
+            color: black;
+            width: 250px;
+            padding: 20px;
+            box-sizing: border-box;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .sidebar h2,
+        .sidebar p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .sidebar nav {
+            margin-top: 20px;
+        }
+
+        .sidebar nav a {
+            display: block;
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar nav a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .sub-menu {
+            display: none;
+            padding-left: 20px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 270px;
+            position: relative;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px #aaa;
+        }
+
+        header button {
+            background-color: #3C6EFB;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        header button:hover {
+            background-color: #2D56C1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px #aaa;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .actions button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .edit {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .delete {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* 菜单样式 */
+        .modal-menu {
+            display: none;
+            position: absolute;
+            top: 120px;
+            left: 20px;
+            width: 220px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        .modal-menu a {
+            display: block;
+            color: black;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .modal-menu a:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 修改表单模态 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .modal button {
+            background-color: #3C6EFB;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .modal button:hover {
+            background-color: #2D56C1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <img src="./img/头像.jpg" alt="管理员照片" onclick="toggleMenu()">
+        <h2>管理员信息</h2>
+        <p>012322100045</p>
+        <nav>
+            <a href="#" onclick="toggleClassSubMenu()">班级管理</a>
+            <div class="sub-menu" id="classManagementMenu">
+                <a href="#">班级信息管理</a>
+                <a href="#">课程安排</a>
+                <a href="#">考勤管理</a>
+                <a href="#">成绩管理</a>
+                <a href="#">班级活动管理</a>
+            </div>
+            <a href="#" onclick="toggleStudentSubMenu()">学生管理</a>
+            <div class="sub-menu" id="studentManagementMenu">
+                <a href="#">学生基本信息管理</a>
+                <a href="#">成绩管理</a>
+                <a href="#">考勤管理</a>
+                <a href="#">课外活动管理</a>
+                <a href="#">家长沟通</a>
+                <a href="#">数据分析</a>
+                <a href="#">信息查询</a>
+                <a href="#">角色管理</a>
+            </div>
+        </nav>
+        <div class="modal-menu" id="menuModal">
+            <a href="#">🔬 体验新功能</a>
+            <a href="#">📋 订单</a>
+            <a href="#">🌀 我的 Playgrounds</a>
+            <a href="#">👤 账号设置</a>
+            <a href="#">🔤 题目以英文显示</a>
+            <a href="#">🚀 经典模式</a>
+            <a href="#">🎨 外观</a>
+            <a href="#">退出</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <header>
+            <h1>学生信息管理系统服务平台</h1>
+            <div>
+                <button>退出登录</button>
+                <button>个性化</button>
+            </div>
+        </header>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>~~学生信息~~</h2>
+            <button onclick="toggleForm()">添加学生</button>
+        </div>
+
+        <div class="add-student-form" id="addStudentForm" style="display: none;">
+            <input type="text" id="院系" placeholder="院系">
+            <input type="text" id="班级" placeholder="班级">
+            <input type="text" id="学号" placeholder="学号">
+            <input type="text" id="姓名" placeholder="姓名">
+            <input type="text" id="电话" placeholder="电话">
+            <button onclick="addStudent()">提交</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>院系</th>
+                    <th>班级</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>电话</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="studentTable">
+                <!-- 假数据将通过JavaScript生成 -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 修改表单模态 -->
+    <div class="modal" id="editStudentModal">
+        <input type="text" id="edit院系" placeholder="院系">
+        <input type="text" id="edit班级" placeholder="班级">
+        <input type="text" id="edit学号" placeholder="学号">
+        <input type="text" id="edit姓名" placeholder="姓名">
+        <input type="text" id="edit电话" placeholder="电话">
+        <button onclick="updateStudent()">保存修改</button>
+    </div>
+
+    <script>
+        let currentRow;
+
+        function toggleClassSubMenu() {
+            const menu = document.getElementById('classManagementMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleStudentSubMenu() {
+            const menu = document.getElementById('studentManagementMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function toggleForm() {
+            const form = document.getElementById('addStudentForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addStudent() {
+            const table = document.getElementById('studentTable');
+            const row = document.createElement('tr');
+
+            const fields = ['院系', '班级', '学号', '姓名', '电话'];
+            fields.forEach(field => {
+                const td = document.createElement('td');
+                td.textContent = document.getElementById(field).value;
+                row.appendChild(td);
+            });
+
+            const actionsTd = document.createElement('td');
+            actionsTd.className = 'actions';
+            actionsTd.innerHTML = `
+                <button class="edit" onclick="editStudent(this)">修改</button>
+                <button class="delete" onclick="deleteRow(this)">删除</button>
+            `;
+            row.appendChild(actionsTd);
+
+            table.appendChild(row);
+            toggleForm();
+        }
+
+        function editStudent(button) {
+            currentRow = button.parentNode.parentNode;
+            const cells = currentRow.getElementsByTagName('td');
+
+            document.getElementById('edit院系').value = cells[0].textContent;
+            document.getElementById('edit班级').value = cells[1].textContent;
+            document.getElementById('edit学号').value = cells[2].textContent;
+            document.getElementById('edit姓名').value = cells[3].textContent;
+            document.getElementById('edit电话').value = cells[4].textContent;
+
+            document.getElementById('editStudentModal').style.display = 'block';
+        }
+
+        function updateStudent() {
+            currentRow.cells[0].textContent = document.getElementById('edit院系').value;
+            currentRow.cells[1].textContent = document.getElementById('edit班级').value;
+            currentRow.cells[2].textContent = document.getElementById('edit学号').value;
+            currentRow.cells[3].textContent = document.getElementById('edit姓名').value;
+            currentRow.cells[4].textContent = document.getElementById('edit电话').value;
+
+            closeEditModal();
+        }
+
+        function closeEditModal() {
+            document.getElementById('editStudentModal').style.display = 'none';
+        }
+
+        function deleteRow(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function toggleMenu() {
+            const menuModal = document.getElementById('menuModal');
+            menuModal.style.display = menuModal.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function generateFakeData() {
+            const departments = ["信息工程学院", "智能制造学院", "外国语学院", "经济学院", "经管学院"];
+            const names = ["贺康华", "小红", "小刚", "小雅", "小李"];
+            const table = document.getElementById('studentTable');
+
+            for (let i = 0; i < 10; i++) {
+                const row = document.createElement('tr');
+                const department = departments[Math.floor(Math.random() * departments.length)];
+                const classNum = `${Math.floor(Math.random() * 10) + 10}班`;
+                const studentId = `2021${Math.floor(Math.random() * 1000000 + 100000)}`;
+                const name = names[Math.floor(Math.random() * names.length)];
+                const phone = `13${Math.floor(Math.random() * 100000000)}`;
+
+                row.innerHTML = `
+                    <td>${department}</td>
+                    <td>${classNum}</td>
+                    <td>${studentId}</td>
+                    <td>${name}</td>
+                    <td>${phone}</td>
+                    <td class="actions">
+                        <button class="edit" onclick="editStudent(this)">修改</button>
+                        <button class="delete" onclick="deleteRow(this)">删除</button>
+                    </td>
+                `;
+                table.appendChild(row);
+            }
+        }
+
+        generateFakeData();
+    </script>
+
+</body>
+
+</html>
