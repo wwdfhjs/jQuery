@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>首页</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        main {
+            display: flex;
+            height: 100vh;
+            overflow-y: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1e1e2f;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #007bff;
+        }
+
+        .btn-toggle {
+            color: white;
+        }
+
+        .collapse .btn-toggle-nav a {
+            color: white;
+        }
+
+        .collapse .btn-toggle-nav a:hover,
+        .collapse .btn-toggle-nav a.active {
+            background-color: #0056b3;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-avatar img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-menu a:hover {
+            background-color: #f8f9fa;
+        }
+
+        .user-menu a:last-child {
+            border-bottom: none;
+        }
+
+        .user-avatar:hover .user-menu {
+            display: block;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="home.html" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#business-collapse" aria-expanded="false">
+                        业务管理
+                    </button>
+                    <div class="collapse" id="business-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="add_store.html" class="link-dark rounded">添加商铺</a></li>
+                            <li><a href="store_management.html" class="link-dark rounded">商铺管理</a></li>
+                            <li><a href="food_management.html" class="link-dark rounded">食品管理</a></li>
+                            <li><a href="order_management.html" class="link-dark rounded">订单管理</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#system-collapse" aria-expanded="false">
+                        系统管理
+                    </button>
+                    <div class="collapse" id="system-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="menu_management.html" class="link-dark rounded">菜单管理</a></li>
+                            <li><a href="department_management.html" class="link-dark rounded">部门管理</a></li>
+                            <li><a href="user_management.html" class="link-dark rounded">用户管理</a></li>
+                            <li><a href="role_management.html" class="link-dark rounded">角色管理</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#maintenance-collapse" aria-expanded="false">
+                        运维管理
+                    </button>
+                    <div class="collapse" id="maintenance-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="monitor_management.html" class="link-dark rounded">监控管理</a></li>
+                            <li><a href="api_documentation.html" class="link-dark rounded">接口文档</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#message-collapse" aria-expanded="false">
+                        消息管理
+                    </button>
+                    <div class="collapse" id="message-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="history_messages.html" class="link-dark rounded">历史消息</a></li>
+                            <li><a href="message_templates.html" class="link-dark rounded">消息模板</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="content-header">
+                <h1>欢迎光临: 贺康华(012322100045)</h1>
+                <div class="user-avatar">
+                    <img src="../img/2.jpg" alt="头像">
+                    <span>个人中心</span>
+                    <div class="user-menu">
+                        <a href="#">修改基础信息</a>
+                        <a href="#">退出</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">注册商家</h5>
+                            <p class="card-text">8000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">新注册用户</h5>
+                            <p class="card-text">102400</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">未处理消息</h5>
+                            <p class="card-text">5</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">收入</h5>
+                            <p class="card-text">¥ 10000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="lineChart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>数据表</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>日期</th>
+                                <th>姓名</th>
+                                <th>地址</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2020-03-13</td>
+                                <td>贺康华</td>
+                                <td>上海市普陀区金昌路1518弄</td>
+                            </tr>
+                            <tr>
+                                <td>2005-03-20</td>
+                                <td>张三</td>
+                                <td>上海市普陀区金昌路1517弄</td>
+                            </tr>
+                            <tr>
+                                <td>2020-05-01</td>
+                                <td>李四</td>
+                                <td>上海市普陀区金昌路1516弄</td>
+                            </tr>
+                            <tr>
+                                <td>2020-05-03</td>
+                                <td>王五</td>
+                                <td>上海市普陀区金昌路1516弄</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Chart.js 图表初始化
+        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(ctxLine, {
+            type: 'line',
+            data: {
+                labels: ['周一', '周二', '周三', '周四', '周五'],
+                datasets: [
+                    {
+                        label: '注册商家',
+                        data: [1000, 1200, 800, 1500, 1300],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        fill: false,
+                    },
+                    {
+                        label: '新注册用户',
+                        data: [2000, 3000, 2500, 2700, 3500],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        fill: false,
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+
+        const ctxBar = document.getElementById('barChart').getContext('2d');
+        const barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['周一', '周二', '周三', '周四', '周五'],
+                datasets: [
+                    {
+                        label: '访客量',
+                        data: [30, 50, 60, 70, 90],
+                        backgroundColor: 'rgba(255, 159, 64, 1)',
+                    },
+                ],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

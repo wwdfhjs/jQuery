@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bootstrap5 实例</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      min-height: 100vh;
+    }
+
+    main {
+      display: flex;
+      height: 100vh;
+      overflow-y: hidden;
+    }
+
+    .sidebar {
+      width: 280px;
+      background-color: white;
+      padding: 15px;
+      border-right: 1px solid rgba(0, 0, 0, .1);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="sidebar">
+      <h5 class="fw-semibold">导航栏</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+            data-bs-target="#home-collapse" aria-expanded="true">
+            首页
+          </button>
+          <div class="collapse show" id="home-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark rounded">概览</a></li>
+              <li><a href="#" class="link-dark rounded">更新</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item mb-1">
+          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+            data-bs-target="#orders-collapse" aria-expanded="false">
+            订单
+          </button>
+          <div class="collapse" id="orders-collapse">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li><a href="#" class="link-dark rounded">新订单</a></li>
+              <li><a href="#" class="link-dark rounded">处理订单</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="flex-grow-1 p-3">
+      <h1>欢迎使用管理系统</h1>
+      <p>这里是主内容区域。</p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    })();
+  </script>
+</body>
+
+</html>

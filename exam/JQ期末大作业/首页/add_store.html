@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>添加商铺</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+        }
+
+        main {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1e1e2f;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #007bff;
+        }
+
+        .sidebar .collapse {
+            background-color: #2c2c3d;
+        }
+
+        .btn-toggle {
+            color: white;
+        }
+
+        .sidebar .nav-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #007bff;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .form-container .form-group {
+            margin-bottom: 15px;
+        }
+
+        .file-upload-section {
+            margin-top: 20px;
+        }
+
+        .file-upload-section .file-upload {
+            margin-bottom: 15px;
+        }
+
+        .file-upload-section label {
+            font-weight: bold;
+        }
+
+        .file-upload-section input[type="file"] {
+            display: block;
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: #f8f9fa;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="sidebar">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a href="home.html" class="nav-link active">首页</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#business-collapse" aria-expanded="false">
+                        业务管理
+                    </button>
+                    <div class="collapse" id="business-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="add_store.html" class="link-dark rounded">添加商铺</a></li>
+                            <li><a href="store_management.html" class="link-dark rounded">商铺管理</a></li>
+                            <li><a href="food_management.html" class="link-dark rounded">食品管理</a></li>
+                            <li><a href="order_management.html" class="link-dark rounded">订单管理</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#system-collapse" aria-expanded="false">
+                        系统管理
+                    </button>
+                    <div class="collapse" id="system-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="menu_management.html" class="link-dark rounded">菜单管理</a></li>
+                            <li><a href="department_management.html" class="link-dark rounded">部门管理</a></li>
+                            <li><a href="user_management.html" class="link-dark rounded">用户管理</a></li>
+                            <li><a href="role_management.html" class="link-dark rounded">角色管理</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#maintenance-collapse" aria-expanded="false">
+                        运维管理
+                    </button>
+                    <div class="collapse" id="maintenance-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="monitor_management.html" class="link-dark rounded">监控管理</a></li>
+                            <li><a href="api_documentation.html" class="link-dark rounded">接口文档</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#message-collapse" aria-expanded="false">
+                        消息管理
+                    </button>
+                    <div class="collapse" id="message-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="history_messages.html" class="link-dark rounded">历史消息</a></li>
+                            <li><a href="message_templates.html" class="link-dark rounded">消息模板</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="form-container">
+                <h2>添加商铺</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="storeName">商铺名称</label>
+                        <input type="text" class="form-control" id="storeName" placeholder="请输入商铺名称">
+                    </div>
+                    <div class="form-group">
+                        <label for="storeAddress">详细地址</label>
+                        <input type="text" class="form-control" id="storeAddress" placeholder="请输入详细地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="storeCategory">商铺类别</label>
+                        <select class="form-control" id="storeCategory">
+                            <option>请选择商铺类别</option>
+                            <option>餐饮</option>
+                            <option>零售</option>
+                            <option>服务</option>
+                        </select>
+                    </div>
+                    <div class="file-upload-section">
+                        <div class="file-upload">
+                            <label for="storeAvatar">上传商铺头像</label>
+                            <input type="file" id="storeAvatar" accept="image/*">
+                        </div>
+                        <div class="file-upload">
+                            <label for="businessLicense">上传营业执照</label>
+                            <input type="file" id="businessLicense" accept="image/*">
+                        </div>
+                        <div class="file-upload">
+                            <label for="foodServiceLicense">上传餐饮服务许可证</label>
+                            <input type="file" id="foodServiceLicense" accept="image/*">
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

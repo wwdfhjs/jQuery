@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录</title>
+  <link href="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.staticfile.net/twitter-bootstrap/5.1.1/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('../img/1.png');
+      /* 替换为您的背景图片路径 */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .form-control {
+      margin-bottom: 15px;
+    }
+
+    .role-selection {
+      margin-bottom: 15px;
+    }
+
+    .login-button {
+      width: 100%;
+      background-color: #f0a500;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .login-button:hover {
+      background-color: #e18b00;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="login-title">waimai</div>
+    <form id="loginForm">
+      <div class="role-selection">
+        <label>
+          <input type="radio" name="role" value="admin" required> 我是管理员
+        </label>
+        <label class="ms-3">
+          <input type="radio" name="role" value="merchant"> 我是商户
+        </label>
+      </div>
+      <input type="text" id="username" class="form-control" placeholder="账号" required>
+      <input type="password" id="password" class="form-control" placeholder="密码" required>
+      <button type="button" class="btn login-button" onclick="handleLogin()">登录</button>
+    </form>
+    <div class="text-center mt-3">
+      <p>管理员账号：admin 密码：admin</p>
+      <p>商户账号：admin1 密码：admin1</p>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const role = document.querySelector('input[name="role"]:checked').value;
+
+      if (role === 'admin' && username === 'admin' && password === 'admin') {
+        alert('管理员登录成功');
+        window.location.href = '../首页/home.html'; // 替换为管理员首页路径
+      } else if (role === 'merchant' && username === 'admin1' && password === 'admin1') {
+        alert('商户登录成功');
+        window.location.href = '../首页/home.html'; // 替换为商户首页路径
+      } else {
+        alert('账号或密码错误，请重试！');
+      }
+    }
+  </script>
+</body>
+
+</html>
